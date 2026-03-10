@@ -9,16 +9,17 @@ def parse_input(user_input):
     cmd, *args = parts
     cmd = cmd.strip().lower()
 
-    return cmd, *[arg.strip() for arg in args]
+    return cmd, [arg.strip() for arg in args]
+
 
 def main():
-    data = load_data()
+    book = load_data()
     print("Welcome to AmigoNotesBot!")
 
     try:
         while True:
             user_input = input("Enter a command: ")
-            command, *args = parse_input(user_input)
+            command, args = parse_input(user_input)
 
             if command in ["close", "exit"]:
                 print("👋  Good bye!")
@@ -31,12 +32,12 @@ def main():
             handler = commands_resolver.COMMANDS.get(command)
 
             if handler:
-                handler(*args)
+                print(handler(args, book))
             else:
-                print("Invalid command.", "error")
+                print("Invalid command.")
                 continue
 
     except Exception as e:
         print(e)
     finally:
-        save_data()
+        save_data(book)
