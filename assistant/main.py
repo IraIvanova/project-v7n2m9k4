@@ -12,7 +12,7 @@ def parse_input(user_input):
     return cmd, *[arg.strip() for arg in args]
 
 def main():
-    data = load_data()
+    contacts, notes = load_data()
     print("Welcome to AmigoNotesBot!")
 
     try:
@@ -28,14 +28,16 @@ def main():
                 print("How can I help you?")
                 continue
 
-            handler = commands_resolver.COMMANDS.get(command)
+            command_data = commands_resolver.COMMANDS.get(command)
 
-            if handler:
-                handler(*args)
-            else:
-                print("Invalid command.", "error")
+            if not command_data:
+                print("Invalid command.")
                 continue
 
+            handler = command_data["handler"]
+            entity = contacts if command_data["entity_type"] == "contacts" else notes
+
+            handler(args, entity)
     except Exception as e:
         print(e)
     finally:
