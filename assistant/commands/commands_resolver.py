@@ -11,119 +11,119 @@ COMMANDS = {
    # CONTACT COMMANDS
     "add-contact": {
         "handler": add_contact,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "edit-contact": {
         "handler": edit_contact,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "delete-contact": {
         "handler": remove_contact,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "search-contact": {
         "handler": show_contact,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "all-contacts": {
         "handler": get_all_contacts,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "add-address": {
         "handler": add_address,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "edit-address": {
         "handler": edit_address,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "delete-address": {
         "handler": remove_address,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "show-address": {
         "handler": show_address,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
 
     "add-email":  {
         "handler": add_email,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "edit-email": {
         "handler": edit_email,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "delete-email": {
         "handler": remove_email,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "show-email": {
         "handler": show_email,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
 
     "add-birthday": {
         "handler": add_birthday,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "edit-birthday": {
         "handler": edit_birthday,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "delete-birthday": {
         "handler": remove_birthday,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "show-birthday": {
         "handler": show_birthday,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
     "contacts-birthdays": {
         "handler": get_upcoming_birthdays,
-        "entity_type": "contact"
+        "entity_type": "contacts"
     },
 
    # NOTES COMMANDS
     "add-note": {
         "handler": add_note,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "edit-note": {
         "handler": edit_note,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "delete-note": {
         "handler": remove_note,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "show-note": {
         "handler": show_note,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "search-notes": {
         "handler": search_notes,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "search-note-by-tag": {
         "handler": search_notes_by_tag,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "all-notes": {
         "handler": get_all_notes,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
 
     "add-tag": {
         "handler": add_tag,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "edit-tag":{
         "handler": edit_tag,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
     "delete-tag": {
         "handler": remove_tag,
-        "entity_type": "contact"
+        "entity_type": "notes"
     },
 }
