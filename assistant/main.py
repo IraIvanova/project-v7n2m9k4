@@ -28,15 +28,16 @@ def main():
                 print("How can I help you?")
                 continue
 
-            handler, entity_type = commands_resolver.COMMANDS[command]
-            entity = contacts if entity_type == "contacts" else notes
+            command_data = commands_resolver.COMMANDS.get("command")
 
-            if handler:
-                handler(*args, entity)
-            else:
-                print("Invalid command.", "error")
+            if not command_data:
+                print("Invalid command.")
                 continue
 
+            handler = command_data["handler"]
+            entity = contacts if command_data["entity_type"] == "contacts" else notes
+
+            handler(args, entity)
     except Exception as e:
         print(e)
     finally:

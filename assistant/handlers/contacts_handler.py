@@ -1,4 +1,4 @@
-def add_contact():
+def add_contact(args, contacts):
     print("contact added")
 
 def edit_contact():
