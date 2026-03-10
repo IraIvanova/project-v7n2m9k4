@@ -1,3 +1,5 @@
+from assistant.storage import notes 
+
 def add_note():
     pass
 

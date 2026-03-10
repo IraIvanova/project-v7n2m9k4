@@ -1,5 +1,5 @@
 from collections import UserDict
-from field import Field
+from .field import Field
 
 class Tag(Field):
    def validate(self):
