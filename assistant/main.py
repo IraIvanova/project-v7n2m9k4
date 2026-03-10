@@ -28,7 +28,7 @@ def main():
                 print("How can I help you?")
                 continue
 
-            command_data = commands_resolver.COMMANDS.get("command")
+            command_data = commands_resolver.COMMANDS.get(command)
 
             if not command_data:
                 print("Invalid command.")
