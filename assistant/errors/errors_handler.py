@@ -1,6 +1,5 @@
 from assistant.errors.exceptions import AddressBookError
 
-
 def input_error(func):
     def wrapper(*args, **kwargs):
         try:
