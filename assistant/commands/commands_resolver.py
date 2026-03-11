@@ -21,10 +21,6 @@ COMMANDS = {
         "handler": remove_contact,
         "entity_type": "contacts"
     },
-    "show-contact": {
-        "handler": show_contact,
-        "entity_type": "contacts"
-    },
     "search-contact": {
         "handler": show_contact,
         "entity_type": "contacts"
