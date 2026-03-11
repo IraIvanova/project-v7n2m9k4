@@ -4,7 +4,7 @@ from assistant.handlers import (
     add_email, edit_email, remove_email, show_email,
     add_birthday, edit_birthday, remove_birthday, show_birthday, get_upcoming_birthdays,
     add_note, edit_note, remove_note, show_note, search_notes, search_notes_by_tag, get_all_notes,
-    add_tag, edit_tag, remove_tag
+    add_tag, edit_tag, remove_tag, sort_notes
 )
 
 COMMANDS = {
@@ -105,6 +105,10 @@ COMMANDS = {
         "handler": search_notes,
         "entity_type": "notes"
     },
+    "sort-notes": {
+        "handler": sort_notes,
+        "entity_type": "notes"
+    },
     "search-note-by-tag": {
         "handler": search_notes_by_tag,
         "entity_type": "notes"
@@ -113,7 +117,6 @@ COMMANDS = {
         "handler": get_all_notes,
         "entity_type": "notes"
     },
-
     "add-tag": {
         "handler": add_tag,
         "entity_type": "notes"

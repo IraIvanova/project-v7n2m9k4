@@ -21,7 +21,12 @@ def main():
 
     try:
         while True:
-            user_input = input("Enter a command: ")
+            try:
+                user_input = input("Enter a command: ")
+            except KeyboardInterrupt:
+                console("👋  Good bye!")
+                break
+
             command, args = parse_input(user_input)
 
             if command in ["close", "exit"]:
