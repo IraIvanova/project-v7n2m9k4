@@ -1,7 +1,7 @@
 from colorama import init
 from assistant.commands import commands_resolver
 from assistant.storage import load_data, save_data
-from assistant.utils import console
+from assistant.utils import console, print_help_table, HELP_INFO
 
 def parse_input(user_input):
     parts = user_input.split()
@@ -35,6 +35,10 @@ def main():
 
             if command in ["hello", "hi"]:
                 console("How can I help you?")
+                continue
+
+            if command == "help":
+                print_help_table(HELP_INFO)
                 continue
 
             command_data = commands_resolver.COMMANDS.get(command)
