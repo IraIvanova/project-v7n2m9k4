@@ -1,3 +1,5 @@
+from functools import wraps
+from assistant.utils import console
 from assistant.errors.exceptions import AddressBookError
 
 def input_error(func):
@@ -13,5 +15,20 @@ def input_error(func):
 
         except KeyError:
             return "Contact not found."
+
+    return wrapper
+
+
+def notes_input_error(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+
+        except ValueError as e:
+            console(str(e), "error")
+
+        except Exception as e:
+            console(f"Unexpected error: {e}", "error")
 
     return wrapper

@@ -14,6 +14,7 @@ This README explains how to run the project correctly, how the codebase is struc
 - [Requirements](#requirements)
 - [How to Run](#how-to-run)
 - [Supported Commands](#supported-commands)
+
 ---
 
 ## Overview
@@ -50,6 +51,7 @@ Navigate to the folder that contains the `assistant` package:
 ## Supported Commands
 
 ### General commands
+
 - `hello`
 - `hi`
 - `close`
@@ -65,16 +67,27 @@ Navigate to the folder that contains the `assistant` package:
 - search contacts
 
 ### Note-related commands
-Examples may include:
-- add note
-- edit note
-- remove note
-- show notes
-- search notes
-- add tags to notes
+
+The assistant supports managing notes with tags. Each note contains:
+
+1. **ID** - unique identifier generated automatically
+1. **TEXT** - the content of the note
+1. **TAGS** - optional tags starting with `#`
+
+use related commands like:
+
+- add-note <**text**> [#tag1 #tag2 ...]
+- edit-note <**note_id**> <**new text**> [#tag1 #tag2 ...]
+- delete-note <**note_id**>
+- delete-tag <**note_id**> <**#tag**>
+- search-notes <**field**> <**query**> (field: id/note/tag)
+- sort-notes <**field**> <**query**> (field: note/tag) (note: 1/-1, tag: #tag1 #tag2...)
+- all-notes
 
 ### Additional field commands
+
 Examples may include:
+
 - add address
 - edit address
 - add birthday

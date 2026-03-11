@@ -3,8 +3,8 @@ from assistant.handlers import (
     add_address, edit_address, remove_address, show_address,
     add_email, edit_email, remove_email, show_email,
     add_birthday, edit_birthday, remove_birthday, show_birthday, get_upcoming_birthdays,
-    add_note, edit_note, remove_note, show_note, search_notes, search_notes_by_tag, get_all_notes,
-    add_tag, edit_tag, remove_tag
+    add_note, edit_note, remove_note, search_notes, get_all_notes,
+    remove_tag, sort_notes
 )
 
 COMMANDS = {
@@ -97,29 +97,16 @@ COMMANDS = {
         "handler": remove_note,
         "entity_type": "notes"
     },
-    "show-note": {
-        "handler": show_note,
-        "entity_type": "notes"
-    },
     "search-notes": {
         "handler": search_notes,
         "entity_type": "notes"
     },
-    "search-note-by-tag": {
-        "handler": search_notes_by_tag,
+    "sort-notes": {
+        "handler": sort_notes,
         "entity_type": "notes"
     },
     "all-notes": {
         "handler": get_all_notes,
-        "entity_type": "notes"
-    },
-
-    "add-tag": {
-        "handler": add_tag,
-        "entity_type": "notes"
-    },
-    "edit-tag":{
-        "handler": edit_tag,
         "entity_type": "notes"
     },
     "delete-tag": {
