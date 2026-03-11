@@ -18,7 +18,6 @@ def main():
     init(autoreset=True, strip=False, convert=False)
     contacts, notes = load_data()
     console("Welcome to AmigoNotesBot!")
-
     try:
         while True:
             try:

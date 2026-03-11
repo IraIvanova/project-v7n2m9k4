@@ -8,13 +8,13 @@ def input_error(func):
             return func(*args, **kwargs)
 
         except AddressBookError as e:
-            return str(e)
+            console(str(e), "error")
 
         except IndexError:
-            return "Enter required arguments."
+            console("Enter required arguments.", "error")
 
         except KeyError:
-            return "Contact not found."
+            console("Contact not found.", "error")
 
     return wrapper
 

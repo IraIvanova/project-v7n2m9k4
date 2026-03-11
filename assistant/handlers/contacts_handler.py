@@ -2,6 +2,7 @@ from assistant.errors.errors_handler import input_error
 from assistant.errors.exceptions import ContactNotFoundError
 from assistant.models.address_book import Record
 from assistant.utils.contact_utils import get_contact_or_raise
+from assistant.utils.print_contacts_table import print_contacts_table
 
 def _set_favorite_status(book, name, is_favorite):
     record = get_contact_or_raise(book, name)
@@ -41,19 +42,21 @@ def remove_contact(args, book):
 @input_error
 def show_contact(args, book):
     record = get_contact_or_raise(book, args[0])
-    return "; ".join(p.value for p in record.phones)
+    print_contacts_table([record])
 
 
 def search_contacts(args, book):
     query = args[0].lower() if args else ""
     results = [str(r) for r in book.data.values() if query in r.name.value.lower()]
-    return "\n".join(results) if results else "No contacts found."
+    if not results:
+        return "No contacts found."
+    print_contacts_table(results)
 
 
-def get_all_contacts(_args, book, favorite=False):
+def get_all_contacts(_args, book):
     if not book.data:
         return "Address book is empty."
-    return "\n".join(str(record) for record in book.data.values())
+    print_contacts_table(book.data.values())
 
 @input_error
 def mark_favorite(args, book):
