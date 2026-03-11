@@ -1,5 +1,7 @@
+from colorama import init
 from assistant.commands import commands_resolver
-from assistant.storage.storage import load_data, save_data
+from assistant.storage import load_data, save_data
+from assistant.utils import console, print_help_table, HELP_INFO
 
 def parse_input(user_input):
     parts = user_input.split()
@@ -13,26 +15,36 @@ def parse_input(user_input):
 
 
 def main():
+    init(autoreset=True, strip=False, convert=False)
     contacts, notes = load_data()
-    print("Welcome to AmigoNotesBot!")
+    console("Welcome to AmigoNotesBot!")
 
     try:
         while True:
-            user_input = input("Enter a command: ")
+            try:
+                user_input = input("Enter a command: ")
+            except KeyboardInterrupt:
+                console("👋  Good bye!")
+                break
+
             command, args = parse_input(user_input)
 
             if command in ["close", "exit"]:
-                print("👋  Good bye!")
+                console("👋  Good bye!")
                 break
 
             if command in ["hello", "hi"]:
-                print("How can I help you?")
+                console("How can I help you?")
+                continue
+
+            if command == "help":
+                print_help_table(HELP_INFO)
                 continue
 
             command_data = commands_resolver.COMMANDS.get(command)
 
             if not command_data:
-                print("Invalid command.")
+                console("Invalid command.", "error")
                 continue
 
             handler = command_data["handler"]
@@ -40,6 +52,6 @@ def main():
 
             handler(args, entity)
     except Exception as e:
-        print(e)
+        console(e, "error")
     finally:
-        save_data(book)
+        save_data(contacts, notes)
