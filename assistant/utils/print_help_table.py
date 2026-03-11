@@ -6,7 +6,7 @@ HELP_INFO = {
         {"command": "add-contact", "args": "<name> <phone>"},
         {"command": "edit-contact", "args": "<name> <old_phone> <new_phone>"},
         {"command": "delete-contact", "args": "<name>"},
-        {"command": "search-contact", "args": "<name>"},
+        {"command": "search-contact", "args": "<query>"},
         {"command": "all-contacts", "args": "-"},
         {"command": "contacts-birthdays", "args": "-"},
     ],
