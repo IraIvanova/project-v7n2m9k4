@@ -9,7 +9,8 @@ def parse_input(user_input):
     cmd, *args = parts
     cmd = cmd.strip().lower()
 
-    return cmd, *[arg.strip() for arg in args]
+    return cmd, [arg.strip() for arg in args]
+
 
 def main():
     contacts, notes = load_data()
@@ -18,7 +19,7 @@ def main():
     try:
         while True:
             user_input = input("Enter a command: ")
-            command, *args = parse_input(user_input)
+            command, args = parse_input(user_input)
 
             if command in ["close", "exit"]:
                 print("👋  Good bye!")
@@ -41,4 +42,4 @@ def main():
     except Exception as e:
         print(e)
     finally:
-        save_data()
+        save_data(book)
