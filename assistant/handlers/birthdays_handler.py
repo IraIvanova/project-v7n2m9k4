@@ -1,13 +1,11 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError
+from assistant.utils.contact_utils import get_contact_or_raise
 
 
 @input_error
 def add_birthday(args, book):
     name, birthday = args
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     record.add_birthday(birthday)
     return "Birthday added."
 
@@ -15,9 +13,7 @@ def add_birthday(args, book):
 @input_error
 def edit_birthday(args, book):
     name, birthday = args
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     record.add_birthday(birthday)
     return "Birthday updated."
 
@@ -25,9 +21,7 @@ def edit_birthday(args, book):
 @input_error
 def remove_birthday(args, book):
     name = args[0]
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     record.birthday = None
     return "Birthday deleted."
 
@@ -35,9 +29,7 @@ def remove_birthday(args, book):
 @input_error
 def show_birthday(args, book):
     name = args[0]
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     if record.birthday is None:
         return "Birthday not set."
     return str(record.birthday)

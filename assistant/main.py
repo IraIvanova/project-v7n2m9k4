@@ -50,7 +50,10 @@ def main():
             handler = command_data["handler"]
             entity = contacts if command_data["entity_type"] == "contacts" else notes
 
-            handler(args, entity)
+            result = handler(args, entity)
+
+            if result:
+                console(result, "success")
     except Exception as e:
         console(e, "error")
     finally:
