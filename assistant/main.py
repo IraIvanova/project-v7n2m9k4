@@ -11,17 +11,18 @@ def parse_input(user_input):
     cmd, *args = parts
     cmd = cmd.strip().lower()
 
-    return cmd, *[arg.strip() for arg in args]
+    return cmd, [arg.strip() for arg in args]
+
 
 def main():
     init(autoreset=True, strip=False, convert=False)
-    load_data()
+    contacts, notes = load_data()
     console("Welcome to AmigoNotesBot!")
 
     try:
         while True:
             user_input = input("Enter a command: ")
-            command, *args = parse_input(user_input)
+            command, args = parse_input(user_input)
 
             if command in ["close", "exit"]:
                 console("👋  Good bye!")
@@ -31,15 +32,17 @@ def main():
                 console("How can I help you?")
                 continue
 
-            handler = commands_resolver.COMMANDS.get(command)
+            command_data = commands_resolver.COMMANDS.get(command)
 
-            if handler:
-                handler(*args)
-            else:
+            if not command_data:
                 console("Invalid command.", "error")
                 continue
 
+            handler = command_data["handler"]
+            entity = contacts if command_data["entity_type"] == "contacts" else notes
+
+            handler(args, entity)
     except Exception as e:
         console(e, "error")
     finally:
-        save_data()
+        save_data(contacts, notes)
