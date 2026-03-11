@@ -31,26 +31,11 @@ def remove_note(args, notes):
 
 
 @notes_input_error
-def show_note():
-    pass
-
-
-@notes_input_error
-def add_tag():
-    pass
-
-
-@notes_input_error
-def edit_tag():
-    pass
-
-
-@notes_input_error
 def remove_tag(args, notes):
     validate_args(args, 2, "Give me Note ID and Tag")
 
     tag = args[1]
-    note = notes.find(args[0])
+    note = notes.find(args[0]) 
     note.remove_tag(tag)
 
     console(f"Tag {tag} removed.", "success")
@@ -68,11 +53,6 @@ def sort_notes(args, notes):
     validate_args(args, 2, "Give me sort field (note/tag) and query (for note is 1/-1) (for tag <#tag1> <tag2>... ).")
     results = notes.sort_by(args[0], args[1:])
     print_notes_table(results)
-
-
-@notes_input_error
-def search_notes_by_tag():
-    pass
 
 
 @notes_input_error
