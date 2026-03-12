@@ -1,10 +1,11 @@
 from assistant.handlers import (
     add_contact, edit_contact, remove_contact, show_contact, get_all_contacts,
+    add_phone, edit_phone, remove_phone, show_phones,
     add_address, edit_address, remove_address, show_address,
     add_email, edit_email, remove_email, show_email,
     add_birthday, edit_birthday, remove_birthday, show_birthday, get_upcoming_birthdays,
     add_note, edit_note, remove_note, search_notes, get_all_notes,
-    remove_tag, sort_notes
+    remove_tag, sort_notes,
 )
 
 COMMANDS = {
@@ -81,6 +82,22 @@ COMMANDS = {
     },
     "contacts-birthdays": {
         "handler": get_upcoming_birthdays,
+        "entity_type": "contacts"
+    },
+    "add-phone": {
+        "handler": add_phone,
+        "entity_type": "contacts"
+    },
+    "edit-phone": {
+        "handler": edit_phone,
+        "entity_type": "contacts"
+    },
+    "delete-phone": {
+        "handler": remove_phone,
+        "entity_type": "contacts"
+    },
+    "show-phones": {
+        "handler": show_phones,
         "entity_type": "contacts"
     },
 

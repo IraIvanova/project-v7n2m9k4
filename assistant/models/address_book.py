@@ -1,3 +1,4 @@
+import re
 from collections import UserDict
 from datetime import datetime, timedelta
 from assistant.models.field import Name, Phone, Email, Address, Birthday
@@ -17,8 +18,9 @@ class Record:
         self.phones.append(Phone(phone))
 
     def find_phone(self, phone):
+        digits = re.sub(r'\D', '', phone)
         for p in self.phones:
-            if p.value == phone:
+            if p.value == digits:
                 return p
         return None
 
@@ -37,6 +39,8 @@ class Record:
         p = self.find_phone(phone)
         if p:
             self.phones.remove(p)
+        else:
+            raise AddressBookError("Phone not found.")
 
     # Birthday
     def add_birthday(self, birthday):

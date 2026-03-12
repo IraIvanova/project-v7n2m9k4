@@ -25,13 +25,14 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        if not self.validate(value):
+        digits = re.sub(r'\D', '', value)
+        if not self.validate(digits):
             raise InvalidPhoneError("Phone must contain exactly 10 digits.")
-        super().__init__(value)
+        super().__init__(digits)
 
     @staticmethod
     def validate(value):
-        return value.isdigit() and len(value) == 10
+        return len(value) == 10
 
 
 class Email(Field):
