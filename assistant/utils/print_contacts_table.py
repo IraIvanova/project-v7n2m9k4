@@ -11,9 +11,10 @@ def print_contacts_table(contacts):
 
     for contact in contacts:
         phones = ",\n".join(tag.value for tag in contact.phones)
+        favorite_prefix = "⭐" if contact.is_favorite else ""
 
         table.append([
-            contact.name,
+            favorite_prefix + contact.name.value,
             phones,
             contact.birthday or "-",
             contact.email or "-",

@@ -1,5 +1,5 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
+from assistant.errors.exceptions import AddressBookError
 from assistant.validators import validate_args
 from assistant.utils.contact_utils import get_contact_or_raise
 

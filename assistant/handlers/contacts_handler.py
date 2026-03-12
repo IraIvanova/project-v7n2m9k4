@@ -37,8 +37,7 @@ def remove_contact(args, book):
 @input_error
 def show_contact(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record =get_contact_or_raise(book, name)
+    record =get_contact_or_raise(book, args[0])
     print_contacts_table([record])
 
 
@@ -88,9 +87,8 @@ def unmark_favorite(args, book):
     return "Contact unmarked as favorite."
 
 def get_favorite_contacts(_args, book):
-    favorites = [str(record) for record in book.data.values() if record.is_favorite]
+    favorites = [record for record in book.data.values() if record.is_favorite]
     if not favorites:
         return "No favorite contacts yet."
-    return "\n".join(favorites)
-
+    print_contacts_table(favorites)
 

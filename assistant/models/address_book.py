@@ -79,7 +79,7 @@ class Record:
         self.is_favorite = False
 
     def __str__(self):
-        favorite_prefix = "⭐" if getattr(self, "is_favorite", False) else ""
+        favorite_prefix = "⭐" if self.is_favorite else ""
         phones = "; ".join(str(p) for p in self.phones)
         birthday = f", birthday: {self.birthday}" if self.birthday else ""
         email = f", email: {self.email}" if self.email else ""

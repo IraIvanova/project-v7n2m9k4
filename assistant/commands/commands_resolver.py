@@ -22,6 +22,14 @@ COMMANDS = {
         "handler": show_contact,
         "entity_type": "contacts"
     },
+    "all-contacts": {
+        "handler": get_all_contacts,
+        "entity_type": "contacts"
+    },
+    "search-contacts": {
+        "handler": search_contacts,
+        "entity_type": "contacts"
+    },
     "mark-favorite": {
         "handler": mark_favorite,
         "entity_type": "contacts"
@@ -32,14 +40,6 @@ COMMANDS = {
     },
     "favorite-contacts": {
         "handler": get_favorite_contacts,
-        "entity_type": "contacts"
-    },
-    "all-contacts": {
-        "handler": get_all_contacts,
-        "entity_type": "contacts"
-    },
-    "search-contacts": {
-        "handler": search_contacts,
         "entity_type": "contacts"
     },
     "add-address": {
