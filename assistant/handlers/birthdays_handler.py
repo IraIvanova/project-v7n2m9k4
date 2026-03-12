@@ -1,9 +1,11 @@
 from assistant.errors.errors_handler import input_error
 from assistant.errors.exceptions import ContactNotFoundError
+from assistant.validators import validate_args
 
 
 @input_error
 def add_birthday(args, book):
+    validate_args(args, 2, "Please provide name and birthday.")
     name, birthday = args
     record = book.find(name)
     if record is None:
@@ -14,6 +16,7 @@ def add_birthday(args, book):
 
 @input_error
 def edit_birthday(args, book):
+    validate_args(args, 2, "Please provide name and birthday.")
     name, birthday = args
     record = book.find(name)
     if record is None:
@@ -24,6 +27,7 @@ def edit_birthday(args, book):
 
 @input_error
 def remove_birthday(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     record = book.find(name)
     if record is None:
@@ -34,6 +38,7 @@ def remove_birthday(args, book):
 
 @input_error
 def show_birthday(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     record = book.find(name)
     if record is None:

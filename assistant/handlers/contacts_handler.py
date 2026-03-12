@@ -2,10 +2,12 @@ from assistant.errors.errors_handler import input_error
 from assistant.errors.exceptions import ContactNotFoundError
 from assistant.models.address_book import Record
 from assistant.utils.print_contacts_table import print_contacts_table
+from assistant.validators import validate_args
 
 
 @input_error
 def add_contact(args, book):
+    validate_args(args, 2, "Please provide name and phone.")
     name, phone = args
     record = book.find(name)
     message = "Contact updated."
@@ -19,6 +21,7 @@ def add_contact(args, book):
 
 @input_error
 def edit_contact(args, book):
+    validate_args(args, 3, "Please provide name, old phone, new phone.")
     name, old_phone, new_phone = args
     record = book.find(name)
     if record is None:
@@ -29,6 +32,7 @@ def edit_contact(args, book):
 
 @input_error
 def remove_contact(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     if book.find(name) is None:
         raise ContactNotFoundError("Contact not found.")
@@ -38,6 +42,7 @@ def remove_contact(args, book):
 
 @input_error
 def show_contact(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     record = book.find(name)
     if record is None:
@@ -46,6 +51,7 @@ def show_contact(args, book):
 
 
 def search_contacts(args, book):
+    validate_args(args, 1, "Please provide name.")
     query = args[0].lower() if args else ""
     results = [str(r) for r in book.data.values() if query in r.name.value.lower()]
     if not results:
