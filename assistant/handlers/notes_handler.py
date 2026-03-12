@@ -7,6 +7,10 @@ def add_note(args, notes):
     validate_args(args, 1, "Give me Note text.")
     
     text, tags = extract_text_and_tags(args)
+
+    if not text:
+        raise ValueError("Note text is required.")
+    
     note = notes.add(text, tags)
     
     console(f"Note created with id {note.id}", "success")
