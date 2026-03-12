@@ -58,16 +58,16 @@ def search_contacts(args, book):
     results = []
     for record in book.data.values():
         if field == "name":
-            if query in record.name.value.lower():
+            if record.name.value.lower().startswith(query):
                 results.append(record)
         elif field == "phone":
-            if any(query in p.value for p in record.phones):
+            if any(p.value.startswith(query) for p in record.phones):
                 results.append(record)
         elif field == "email":
-            if record.email and query in str(record.email).lower():
+            if record.email and str(record.email).lower().startswith(query):
                 results.append(record)
         elif field == "birthday":
-            if record.birthday and query in str(record.birthday):
+            if record.birthday and str(record.birthday).startswith(query):
                 results.append(record)
         elif field == "address":
             if record.address and query in str(record.address).lower():
