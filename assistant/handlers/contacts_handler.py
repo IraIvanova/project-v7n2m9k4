@@ -9,6 +9,7 @@ from assistant.validators import validate_args
 def add_contact(args, book):
     validate_args(args, 2, "Please provide name and phone.")
     name, phone = args
+    book.is_phone_unique(phone)
     record = book.find(name)
     message = "Contact updated."
     if record is None:

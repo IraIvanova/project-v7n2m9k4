@@ -90,6 +90,18 @@ class AddressBook(UserDict):
     def find(self, name):
         return self.data.get(name)
 
+    def find_by_phone(self, phone):
+        digits = re.sub(r'\D', '', phone)
+        for record in self.data.values():
+            if any(p.value == digits for p in record.phones):
+                return record
+        return None
+
+    def is_phone_unique(self, phone):
+        existing = self.find_by_phone(phone)
+        if existing is not None:
+            raise AddressBookError(f"Phone already belongs to contact '{existing.name}'.")
+
     def delete(self, name):
         if name in self.data:
             del self.data[name]
