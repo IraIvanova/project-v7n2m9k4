@@ -15,7 +15,7 @@ class Note(Field):
 
     def validate(self):
         if not self.value:
-            raise ValueError("Note text cannot be empty")
+            raise ValueError("Please provide Note text")
         
     # EDIT NOTE
     def edit(self, new_text=None, new_tags=None):
