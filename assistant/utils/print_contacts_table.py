@@ -10,7 +10,7 @@ def print_contacts_table(contacts):
     table = []
 
     for contact in contacts:
-        phones = ", ".join(tag.value for tag in contact.phones)
+        phones = ",\n".join(tag.value for tag in contact.phones)
 
         table.append([
             contact.name,
