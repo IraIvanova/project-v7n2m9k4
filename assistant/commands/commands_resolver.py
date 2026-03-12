@@ -1,5 +1,5 @@
 from assistant.handlers import (
-    add_contact, edit_contact, remove_contact, show_contact, get_all_contacts, search_contacts,
+    add_contact, remove_contact, show_contact, get_all_contacts, search_contacts,
     add_phone, edit_phone, remove_phone, show_phones,
     add_address, edit_address, remove_address, show_address,
     add_email, edit_email, remove_email, show_email,
@@ -12,10 +12,6 @@ COMMANDS = {
    # CONTACT COMMANDS
     "add-contact": {
         "handler": add_contact,
-        "entity_type": "contacts"
-    },
-    "edit-contact": {
-        "handler": edit_contact,
         "entity_type": "contacts"
     },
     "delete-contact": {

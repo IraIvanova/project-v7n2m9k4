@@ -1,5 +1,5 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError
+from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
 from assistant.validators import validate_args
 
 
@@ -10,6 +10,8 @@ def add_address(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    if record.address is not None:
+        raise AddressBookError("Address already set. Use edit-address to change it.")
     record.add_address(" ".join(address))
     return "Address added."
 

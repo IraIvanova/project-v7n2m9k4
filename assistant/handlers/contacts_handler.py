@@ -1,5 +1,5 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError
+from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
 from assistant.models.address_book import Record
 from assistant.utils.print_contacts_table import print_contacts_table
 from assistant.validators import validate_args
@@ -9,26 +9,14 @@ from assistant.validators import validate_args
 def add_contact(args, book):
     validate_args(args, 2, "Please provide name and phone.")
     name, phone = args
+    record = book.find(name)
+    if record is not None:
+        raise AddressBookError("Contact already exists. Use add-phone, edit-* or other commands to update it.")
     book.is_phone_unique(phone)
-    record = book.find(name)
-    message = "Contact updated."
-    if record is None:
-        record = Record(name)
-        book.add_record(record)
-        message = "Contact added."
+    record = Record(name)
     record.add_phone(phone)
-    return message
-
-
-@input_error
-def edit_contact(args, book):
-    validate_args(args, 3, "Please provide name, old phone, new phone.")
-    name, old_phone, new_phone = args
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
-    record.edit_phone(old_phone, new_phone)
-    return "Phone updated."
+    book.add_record(record)
+    return "Contact added."
 
 
 @input_error
