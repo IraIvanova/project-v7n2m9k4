@@ -94,6 +94,11 @@ class AddressBook(UserDict):
                 return record
         return None
 
+    def is_email_unique(self, email):
+        for record in self.data.values():
+            if record.email and str(record.email).lower() == email.lower():
+                raise AddressBookError(f"Email already belongs to contact '{record.name}'.")
+
     def is_phone_unique(self, phone):
         existing = self.find_by_phone(phone)
         if existing is not None:

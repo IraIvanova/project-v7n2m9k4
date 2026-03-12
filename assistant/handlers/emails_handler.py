@@ -10,6 +10,7 @@ def add_email(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    book.is_email_unique(email)
     record.add_email(email)
     return "Email added."
 
@@ -21,6 +22,7 @@ def edit_email(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    book.is_email_unique(email)
     record.edit_email(email)
     return "Email updated."
 
