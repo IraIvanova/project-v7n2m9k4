@@ -22,5 +22,5 @@ def input_error(func):
 
         except Exception as e:
             console(f"Unexpected error: {e}", "error")
-            
+
     return wrapper
