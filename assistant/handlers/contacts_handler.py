@@ -51,10 +51,31 @@ def show_contact(args, book):
     print_contacts_table([record])
 
 
+@input_error
 def search_contacts(args, book):
-    validate_args(args, 1, "Please provide name.")
-    query = args[0].lower() if args else ""
-    results = [str(r) for r in book.data.values() if query in r.name.value.lower()]
+    validate_args(args, 2, "Please provide field (name/phone/email/birthday/address) and query.")
+    field, query = args[0].lower(), args[1].lower()
+
+    results = []
+    for record in book.data.values():
+        if field == "name":
+            if record.name.value.lower().startswith(query):
+                results.append(record)
+        elif field == "phone":
+            if any(p.value.startswith(query) for p in record.phones):
+                results.append(record)
+        elif field == "email":
+            if record.email and str(record.email).lower().startswith(query):
+                results.append(record)
+        elif field == "birthday":
+            if record.birthday and str(record.birthday).startswith(query):
+                results.append(record)
+        elif field == "address":
+            if record.address and query in str(record.address).lower():
+                results.append(record)
+        else:
+            return "Invalid field. Use: name/phone/email/birthday/address"
+
     if not results:
         return "No contacts found."
     print_contacts_table(results)
