@@ -27,8 +27,7 @@ def edit_address(args, book):
 @input_error
 def remove_address(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     record.delete_address()
     return "Address deleted."
 
@@ -36,8 +35,7 @@ def remove_address(args, book):
 @input_error
 def show_address(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     if record.address is None:
         return "Address not set."
     return str(record.address)

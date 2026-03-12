@@ -37,7 +37,7 @@ def remove_contact(args, book):
 @input_error
 def show_contact(args, book):
     validate_args(args, 1, "Please provide name.")
-    record =get_contact_or_raise(book, args[0])
+    record = get_contact_or_raise(book, args[0])
     print_contacts_table([record])
 
 

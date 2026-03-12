@@ -28,8 +28,7 @@ def edit_birthday(args, book):
 @input_error
 def remove_birthday(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     record.birthday = None
     return "Birthday deleted."
 
@@ -37,8 +36,7 @@ def remove_birthday(args, book):
 @input_error
 def show_birthday(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     if record.birthday is None:
         return "Birthday not set."
     return str(record.birthday)

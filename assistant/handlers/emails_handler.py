@@ -29,8 +29,7 @@ def edit_email(args, book):
 @input_error
 def remove_email(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     record.delete_email()
     return "Email deleted."
 
@@ -38,8 +37,7 @@ def remove_email(args, book):
 @input_error
 def show_email(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = get_contact_or_raise(book, name)
+    record = get_contact_or_raise(book, args[0])
     if record.email is None:
         return "Email not set."
     return str(record.email)
