@@ -1,17 +1,23 @@
 from assistant.errors.errors_handler import input_error
+from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
+from assistant.validators import validate_args
 from assistant.utils.contact_utils import get_contact_or_raise
 
 
 @input_error
 def add_address(args, book):
+    validate_args(args, 2, "Please provide name and address.")
     name, *address = args
     record = get_contact_or_raise(book, name)
+    if record.address is not None:
+        raise AddressBookError("Address already set. Use edit-address to change it.")
     record.add_address(" ".join(address))
     return "Address added."
 
 
 @input_error
 def edit_address(args, book):
+    validate_args(args, 2, "Please provide name and address.")
     name, *address = args
     record = get_contact_or_raise(book, name)
     record.edit_address(" ".join(address))
@@ -20,6 +26,7 @@ def edit_address(args, book):
 
 @input_error
 def remove_address(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     record = get_contact_or_raise(book, name)
     record.delete_address()
@@ -28,6 +35,7 @@ def remove_address(args, book):
 
 @input_error
 def show_address(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     record = get_contact_or_raise(book, name)
     if record.address is None:

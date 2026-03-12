@@ -1,8 +1,9 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError
+from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
 from assistant.models.address_book import Record
 from assistant.utils.contact_utils import get_contact_or_raise
 from assistant.utils.print_contacts_table import print_contacts_table
+from assistant.validators import validate_args
 
 def _set_favorite_status(book, name, is_favorite):
     record = get_contact_or_raise(book, name)
@@ -11,27 +12,21 @@ def _set_favorite_status(book, name, is_favorite):
 
 @input_error
 def add_contact(args, book):
+    validate_args(args, 2, "Please provide name and phone.")
     name, phone = args
     record = book.find(name)
-    message = "Contact updated."
-    if record is None:
-        record = Record(name)
-        book.add_record(record)
-        message = "Contact added."
+    if record is not None:
+        raise AddressBookError("Contact already exists. Use add-phone, edit-* or other commands to update it.")
+    book.is_phone_unique(phone)
+    record = Record(name)
     record.add_phone(phone)
-    return message
-
-
-@input_error
-def edit_contact(args, book):
-    name, old_phone, new_phone = args
-    record = get_contact_or_raise(book, args[0])
-    record.edit_phone(old_phone, new_phone)
-    return "Phone updated."
+    book.add_record(record)
+    return "Contact added."
 
 
 @input_error
 def remove_contact(args, book):
+    validate_args(args, 1, "Please provide name.")
     name = args[0]
     if book.find(name) is None:
         raise ContactNotFoundError("Contact not found.")
@@ -41,13 +36,37 @@ def remove_contact(args, book):
 
 @input_error
 def show_contact(args, book):
-    record = get_contact_or_raise(book, args[0])
+    validate_args(args, 1, "Please provide name.")
+    name = args[0]
+    record =get_contact_or_raise(book, name)
     print_contacts_table([record])
 
 
+@input_error
 def search_contacts(args, book):
-    query = args[0].lower() if args else ""
-    results = [str(r) for r in book.data.values() if query in r.name.value.lower()]
+    validate_args(args, 2, "Please provide field (name/phone/email/birthday/address) and query.")
+    field, query = args[0].lower(), args[1].lower()
+
+    results = []
+    for record in book.data.values():
+        if field == "name":
+            if record.name.value.lower().startswith(query):
+                results.append(record)
+        elif field == "phone":
+            if any(p.value.startswith(query) for p in record.phones):
+                results.append(record)
+        elif field == "email":
+            if record.email and str(record.email).lower().startswith(query):
+                results.append(record)
+        elif field == "birthday":
+            if record.birthday and str(record.birthday).startswith(query):
+                results.append(record)
+        elif field == "address":
+            if record.address and query in str(record.address).lower():
+                results.append(record)
+        else:
+            return "Invalid field. Use: name/phone/email/birthday/address"
+
     if not results:
         return "No contacts found."
     print_contacts_table(results)

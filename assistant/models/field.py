@@ -25,13 +25,24 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        if not self.validate(value):
-            raise InvalidPhoneError("Phone must contain exactly 10 digits.")
-        super().__init__(value)
+        normalized = self.normalize(value)
+        if not self.validate(normalized):
+            raise InvalidPhoneError("Invalid phone number. Use local format 0XXXXXXXXX (10 digits) or international +380XXXXXXXXX / 380XXXXXXXXX (12 digits).")
+        super().__init__(normalized)
+
+    @staticmethod
+    def normalize(phone: str) -> str:
+        digits = re.sub(r'\D', '', phone)
+        if digits.startswith('380'):
+            return '+' + digits
+        elif digits.startswith('0'):
+            return '+38' + digits
+        else:
+            return '+38' + digits
 
     @staticmethod
     def validate(value):
-        return value.isdigit() and len(value) == 10
+        return len(value) == 13 and value.startswith('+380')
 
 
 class Email(Field):
