@@ -1,6 +1,7 @@
 from assistant.errors.errors_handler import input_error
 from assistant.errors.exceptions import ContactNotFoundError
 from assistant.models.address_book import Record
+from assistant.utils.print_contacts_table import print_contacts_table
 
 
 @input_error
@@ -41,16 +42,18 @@ def show_contact(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
-    return "; ".join(p.value for p in record.phones)
+    print_contacts_table([record])
 
 
 def search_contacts(args, book):
     query = args[0].lower() if args else ""
     results = [str(r) for r in book.data.values() if query in r.name.value.lower()]
-    return "\n".join(results) if results else "No contacts found."
+    if not results:
+        return "No contacts found."
+    print_contacts_table(results)
 
 
 def get_all_contacts(_args, book):
     if not book.data:
         return "Address book is empty."
-    return "\n".join(str(record) for record in book.data.values())
+    print_contacts_table(book.data.values())
