@@ -1,3 +1,4 @@
+import re
 from collections import UserDict
 from datetime import datetime, timedelta
 from assistant.models.field import Name, Phone, Email, Address, Birthday
@@ -17,8 +18,9 @@ class Record:
         self.phones.append(Phone(phone))
 
     def find_phone(self, phone):
+        digits = re.sub(r'\D', '', phone)
         for p in self.phones:
-            if p.value == phone:
+            if p.value == digits:
                 return p
         return None
 
@@ -37,6 +39,8 @@ class Record:
         p = self.find_phone(phone)
         if p:
             self.phones.remove(p)
+        else:
+            raise AddressBookError("Phone not found.")
 
     # Birthday
     def add_birthday(self, birthday):
@@ -85,6 +89,18 @@ class AddressBook(UserDict):
 
     def find(self, name):
         return self.data.get(name)
+
+    def find_by_phone(self, phone):
+        digits = re.sub(r'\D', '', phone)
+        for record in self.data.values():
+            if any(p.value == digits for p in record.phones):
+                return record
+        return None
+
+    def is_phone_unique(self, phone):
+        existing = self.find_by_phone(phone)
+        if existing is not None:
+            raise AddressBookError(f"Phone already belongs to contact '{existing.name}'.")
 
     def delete(self, name):
         if name in self.data:

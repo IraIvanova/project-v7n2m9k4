@@ -7,6 +7,9 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
 
+        except ValueError as e:
+            console(str(e), "error")
+
         except AddressBookError as e:
             console(str(e), "error")
 
@@ -16,6 +19,9 @@ def input_error(func):
         except KeyError:
             console("Contact not found.", "error")
 
+        except Exception as e:
+            console(f"Unexpected error: {e}", "error")
+            
     return wrapper
 
 
