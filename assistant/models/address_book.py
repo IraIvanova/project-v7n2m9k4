@@ -11,6 +11,7 @@ class Record:
         self.birthday = None
         self.email = None
         self.address = None
+        self.is_favorite = False
 
     # Phones
     def add_phone(self, phone):
@@ -71,12 +72,19 @@ class Record:
             raise FieldNotSetError("Address not set.")
         self.address = None
 
+    def mark_favorite(self):
+        self.is_favorite = True
+
+    def unmark_favorite(self):
+        self.is_favorite = False
+
     def __str__(self):
+        favorite_prefix = "⭐" if self.is_favorite else ""
         phones = "; ".join(str(p) for p in self.phones)
         birthday = f", birthday: {self.birthday}" if self.birthday else ""
         email = f", email: {self.email}" if self.email else ""
         address = f", address: {self.address}" if self.address else ""
-        return f"Contact name: {self.name}, phones: {phones}{birthday}{email}{address}"
+        return f"Contact name: {favorite_prefix}{self.name}, phones: {phones}{birthday}{email}{address}"
 
 
 class AddressBook(UserDict):

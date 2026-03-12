@@ -1,5 +1,5 @@
 from assistant.handlers import (
-    add_contact, remove_contact, show_contact, get_all_contacts, search_contacts,
+    add_contact, remove_contact, show_contact, get_all_contacts, search_contacts, mark_favorite, unmark_favorite, get_favorite_contacts,
     add_phone, edit_phone, remove_phone, show_phones,
     add_address, edit_address, remove_address, show_address,
     add_email, edit_email, remove_email, show_email,
@@ -28,6 +28,18 @@ COMMANDS = {
     },
     "search-contacts": {
         "handler": search_contacts,
+        "entity_type": "contacts"
+    },
+    "mark-favorite": {
+        "handler": mark_favorite,
+        "entity_type": "contacts"
+    },
+    "unmark-favorite": {
+        "handler": unmark_favorite,
+        "entity_type": "contacts"
+    },
+    "favorite-contacts": {
+        "handler": get_favorite_contacts,
         "entity_type": "contacts"
     },
     "add-address": {

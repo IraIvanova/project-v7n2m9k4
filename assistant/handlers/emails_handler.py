@@ -1,15 +1,14 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
+from assistant.errors.exceptions import AddressBookError
 from assistant.validators import validate_args
+from assistant.utils.contact_utils import get_contact_or_raise
 
 
 @input_error
 def add_email(args, book):
     validate_args(args, 2, "Please provide name and email.")
     name, email = args
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     if record.email is not None:
         raise AddressBookError("Email already set. Use edit-email to change it.")
     book.is_email_unique(email)
@@ -21,9 +20,7 @@ def add_email(args, book):
 def edit_email(args, book):
     validate_args(args, 2, "Please provide name and email.")
     name, email = args
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, name)
     book.is_email_unique(email)
     record.edit_email(email)
     return "Email updated."
@@ -32,10 +29,7 @@ def edit_email(args, book):
 @input_error
 def remove_email(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, args[0])
     record.delete_email()
     return "Email deleted."
 
@@ -43,10 +37,7 @@ def remove_email(args, book):
 @input_error
 def show_email(args, book):
     validate_args(args, 1, "Please provide name.")
-    name = args[0]
-    record = book.find(name)
-    if record is None:
-        raise ContactNotFoundError("Contact not found.")
+    record = get_contact_or_raise(book, args[0])
     if record.email is None:
         return "Email not set."
     return str(record.email)
