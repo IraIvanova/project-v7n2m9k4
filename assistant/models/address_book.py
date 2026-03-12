@@ -1,8 +1,7 @@
-import re
 from collections import UserDict
 from datetime import datetime, timedelta
 from assistant.models.field import Name, Phone, Email, Address, Birthday
-from assistant.errors.exceptions import AddressBookError, InvalidPhoneError, FieldNotSetError
+from assistant.errors.exceptions import AddressBookError, FieldNotSetError
 
 
 class Record:
@@ -18,9 +17,9 @@ class Record:
         self.phones.append(Phone(phone))
 
     def find_phone(self, phone):
-        digits = re.sub(r'\D', '', phone)
+        normalized = Phone.normalize(phone)
         for p in self.phones:
-            if p.value == digits:
+            if p.value == normalized:
                 return p
         return None
 
@@ -30,10 +29,8 @@ class Record:
         if phone is None:
             raise AddressBookError("Phone not found.")
 
-        if not Phone.validate(new_phone):
-            raise InvalidPhoneError("Phone must contain exactly 10 digits.")
-
-        phone.value = new_phone
+        new_phone_obj = Phone(new_phone)
+        phone.value = new_phone_obj.value
 
     def remove_phone(self, phone):
         p = self.find_phone(phone)
@@ -91,9 +88,9 @@ class AddressBook(UserDict):
         return self.data.get(name)
 
     def find_by_phone(self, phone):
-        digits = re.sub(r'\D', '', phone)
+        normalized = Phone.normalize(phone)
         for record in self.data.values():
-            if any(p.value == digits for p in record.phones):
+            if any(p.value == normalized for p in record.phones):
                 return record
         return None
 
