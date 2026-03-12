@@ -6,9 +6,10 @@ HELP_INFO = {
         {"command": "add-contact", "args": "<name> <phone>"},
         {"command": "edit-contact", "args": "<name> <old_phone> <new_phone>"},
         {"command": "delete-contact", "args": "<name>"},
-        {"command": "search-contact", "args": "<query>"},
+        {"command": "show-contact", "args": "<name>"},
         {"command": "all-contacts", "args": "-"},
         {"command": "contacts-birthdays", "args": "-"},
+        {"command": "search-contacts", "args": "<field> <query>"},
     ],
 
     "FIELDS": [
@@ -24,6 +25,10 @@ HELP_INFO = {
         {"command": "edit-birthday", "args": "<name> <birthday>"},
         {"command": "delete-birthday", "args": "<name>"},
         {"command": "show-birthday", "args": "<name>"},
+        {"command": "add-phone", "args": "<name> <phone>"},
+        {"command": "edit-phone", "args": "<name> <phone>"},
+        {"command": "delete-phone", "args": "<name>"},
+        {"command": "show-phone", "args": "<name>"},
     ],
 
     "NOTES": [
