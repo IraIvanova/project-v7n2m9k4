@@ -1,5 +1,5 @@
 from assistant.errors.errors_handler import input_error
-from assistant.errors.exceptions import ContactNotFoundError
+from assistant.errors.exceptions import ContactNotFoundError, AddressBookError
 from assistant.validators import validate_args
 
 
@@ -10,6 +10,8 @@ def add_email(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    if record.email is not None:
+        raise AddressBookError("Email already set. Use edit-email to change it.")
     book.is_email_unique(email)
     record.add_email(email)
     return "Email added."

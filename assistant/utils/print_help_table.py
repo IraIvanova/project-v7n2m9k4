@@ -4,7 +4,6 @@ from tabulate import tabulate
 HELP_INFO = {
     "CONTACT": [
         {"command": "add-contact", "args": "<name> <phone>"},
-        {"command": "edit-contact", "args": "<name> <old_phone> <new_phone>"},
         {"command": "delete-contact", "args": "<name>"},
         {"command": "show-contact", "args": "<name>"},
         {"command": "all-contacts", "args": "-"},
@@ -26,7 +25,7 @@ HELP_INFO = {
         {"command": "delete-birthday", "args": "<name>"},
         {"command": "show-birthday", "args": "<name>"},
         {"command": "add-phone", "args": "<name> <phone>"},
-        {"command": "edit-phone", "args": "<name> <phone>"},
+        {"command": "edit-phone", "args": "<name> <old_phone> <new_phone>"},
         {"command": "delete-phone", "args": "<name>"},
         {"command": "show-phone", "args": "<name>"},
     ],
