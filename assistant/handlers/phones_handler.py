@@ -10,6 +10,7 @@ def add_phone(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    book.is_phone_unique(phone)
     record.add_phone(phone)
     return "Phone added."
 
@@ -21,6 +22,7 @@ def edit_phone(args, book):
     record = book.find(name)
     if record is None:
         raise ContactNotFoundError("Contact not found.")
+    book.is_phone_unique(new_phone)
     record.edit_phone(old_phone, new_phone)
     return "Phone updated."
 
