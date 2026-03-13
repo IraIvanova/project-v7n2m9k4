@@ -7,11 +7,14 @@ name = "assistant"
 version = "0.1.0"
 description = "CLI assistant for contacts and notes"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.9"
 
 dependencies = [
     "colorama",
-    "tabulate"
+    "tabulate",
+    "prompt_toolkit",
+    "thefuzz", 
+    "rapidfuzz"
 ]
 
 [tool.setuptools.packages.find]
