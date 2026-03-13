@@ -42,8 +42,19 @@ def show_birthday(args, book):
     return str(record.birthday)
 
 
-def get_upcoming_birthdays(_args, book):
-    upcoming = book.get_upcoming_birthdays()
+@input_error
+def get_upcoming_birthdays(args, book):
+    # Отримуємо кількість днів з аргументів (за замовчуванням 7) та виводимо список іменинників
+    days = 7
+    if args:
+        try:
+            days = int(args[0])
+        except ValueError:
+            raise ValueError("Please provide a valid number of days.")
+
+    upcoming = book.get_upcoming_birthdays(days)
+    
     if not upcoming:
-        return "No upcoming birthdays."
+        return f"No upcoming birthdays in the next {days} days."
+    
     return "\n".join(f"{item['name']} - {item['congratulation_date']}" for item in upcoming)
