@@ -116,7 +116,11 @@ class AddressBook(UserDict):
         if name in self.data:
             del self.data[name]
 
-    def get_upcoming_birthdays(self):
+    def get_upcoming_birthdays(self, days=7):
+        """
+        Знаходить контакти, чий день народження настане протягом наступних N днів.
+        Якщо день народження припадає на вихідний, дата привітання переноситься на понеділок.
+        """
         today = datetime.today().date()
         upcoming = []
 
@@ -128,17 +132,20 @@ class AddressBook(UserDict):
             birthday = record.birthday.value.date()
             birthday_this_year = birthday.replace(year=today.year)
 
+            # Якщо день народження вже минув у цьому році, перевіряємо наступний рік 
             if birthday_this_year < today:
                 birthday_this_year = birthday_this_year.replace(year=today.year + 1)
 
             delta_days = (birthday_this_year - today).days
 
-            if 0 <= delta_days <= 7:
+            # Перевірка, чи входить дата у заданий діапазон 
+            if 0 <= delta_days <= days:
                 congrat_date = birthday_this_year
 
-                if congrat_date.weekday() == 5:
+                # Перенесення вихідних на робочі дні 
+                if congrat_date.weekday() == 5:  # Субота
                     congrat_date += timedelta(days=2)
-                elif congrat_date.weekday() == 6:
+                elif congrat_date.weekday() == 6:  # Неділя
                     congrat_date += timedelta(days=1)
 
                 upcoming.append({
