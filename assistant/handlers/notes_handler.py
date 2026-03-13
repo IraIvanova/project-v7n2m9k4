@@ -61,5 +61,7 @@ def sort_notes(args, notes):
 
 @input_error
 def get_all_notes(args, notes):
+    if not notes.data:
+        return "Notes book is empty."
     notes_list = notes.show_all()
     print_notes_table(notes_list)
