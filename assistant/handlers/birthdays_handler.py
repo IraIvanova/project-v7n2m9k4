@@ -41,17 +41,19 @@ def show_birthday(args, book):
         return "Birthday not set."
     return str(record.birthday)
 
-
 @input_error
 def get_upcoming_birthdays(args, book):
-    # Отримуємо кількість днів з аргументів (за замовчуванням 7) та виводимо список іменинників
+    # Якщо аргументи передані, валідуємо їх (очікуємо 1 аргумент - кількість днів)
+    # Якщо аргументів немає, використовуємо значення за замовчуванням 7
     days = 7
     if args:
+        # Перевіряємо наявність мінімум 1 аргументу та виводимо повідомлення при помилці
+        validate_args(args, expected_count=1, message="Please provide a valid number of days.")
         try:
             days = int(args[0])
         except ValueError:
             raise ValueError("Please provide a valid number of days.")
-
+    
     upcoming = book.get_upcoming_birthdays(days)
     
     if not upcoming:
