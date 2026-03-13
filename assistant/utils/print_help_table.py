@@ -9,6 +9,9 @@ HELP_INFO = {
         {"command": "all-contacts", "args": "-"},
         {"command": "contacts-birthdays", "args": "-"},
         {"command": "search-contacts", "args": "<field> <query>"},
+        {"command": "mark-favorite", "args": "<name>"},
+        {"command": "unmark-favorite", "args": "<name>"},
+        {"command": "favorite-contacts", "args": "-"},
     ],
 
     "FIELDS": [

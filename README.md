@@ -28,6 +28,21 @@ The application is designed as a command-line assistant that can:
 -  Search notes by different fields
 -  Run the app directly from the terminal after installation
 
+## Smart Command Analysis
+The assistant features a two-level intelligent command recognition system to make the interaction seamless and user-friendly:
+
+1. Real-time Autocompletion (Tab)
+The bot "guesses" your intent as you type. By pressing the Tab key, the assistant will:
+-  Complete the command if there is only one match.
+-  Show a list of all available options if there are multiple matches (e.g., typing add- and pressing Tab twice).
+
+2. Fuzzy Matching & Suggestions
+If a command is entered with a typo or is incomplete (and the user presses Enter), the bot uses the Levenshtein distance algorithm to:
+
+-  Analyze how close the input is to existing commands.
+-  Suggest the most likely intended command (e.g., adres -> add-address).
+-  Provide a helpful hint to use the help command if the input is completely unrecognizable.
+
 ---
 ## 📂 Project Structure
 The project is structured as a Python package:
@@ -52,9 +67,16 @@ requirements.txt # Dependency list
 ---
 ## ⚙️ Requirements
 
-- **Python 3.12+**
+- **Python 3.9+**
 - `pip`
 - `venv` module available in your Python installation
+
+### Dependencies
+- colorama
+- tabulate
+- prompt_toolkit
+- thefuzz
+- rapidfuzz
 
 ---
 
@@ -117,16 +139,17 @@ Enter a command: add-contact John 1234567890
 ## Supported Commands
 ## 📇 Contact Commands
 
-| Command | Description |
-|--------|-------------|
-| `add-contact <name> <phone>` | Creates a new contact with the given name and phone number. |
-| `edit-contact <name> <old_phone> <new_phone>` | Updates a contact’s phone number. |
-| `delete-contact <name>` | Deletes a contact by name. |
-| `search-contact <query>` | Searches for a contact by a query value. |
-| `mark-favorite <name>` | Marks a contact as favorite. |
-| `unmark-favorite <name>` | Removes the favorite mark from a contact. |
-| `favorite-contacts` | Shows all contacts marked as favorite. |
-| `all-contacts` | Displays all saved contacts. |
+| Command                                                                      | Description                                                 |
+|------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `add-contact <name> <phone>`                                                 | Creates a new contact with the given name and phone number. |
+| `delete-contact <name>`                                                      | Deletes a contact by name.                                  |
+| `search-contacts <field> <query> (field: name/phone/email/birthday/address)` | Searches for a contact by a query value.                    |
+| `mark-favorite <name>`                                                       | Marks a contact as favorite.                                |
+| `unmark-favorite <name>`                                                     | Removes the favorite mark from a contact.                   |
+| `favorite-contacts`                                                          | Shows all contacts marked as favorite.                      |
+| `all-contacts`                                                               | Displays all saved contacts.                                |
+| `add-phone <name> <phone>`                                                   | Add new phone number to a contact.                          |
+| `edit-phone <name> <old_phone> <new_phone>`                                  | Updates a contact’s phone number.                           |
 
 ---
 ## 📝 Note Commands
