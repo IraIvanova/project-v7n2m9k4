@@ -55,7 +55,7 @@ def main():
             if command not in available_commands:
                 suggestion = suggest_command(command, available_commands)
                 if suggestion:
-                    console(f"Invalid command. Did you mean '{suggestion}'?", "warning")
+                    console(f"Invalid command. Did you mean '{suggestion}'?", "error")
                 else:
                     console("Invalid command. Type 'help' to see available commands.", "error")
                 continue
