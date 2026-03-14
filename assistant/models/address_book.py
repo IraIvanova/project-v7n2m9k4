@@ -118,8 +118,8 @@ class AddressBook(UserDict):
 
     def get_upcoming_birthdays(self, days=7):
         """
-        Знаходить контакти, чий день народження настане протягом наступних N днів.
-        Якщо день народження припадає на вихідний, дата привітання переноситься на понеділок.
+        Finds contacts whose birthday will occur within the next N days.
+        If the birthday falls on a weekend, the congratulation date is moved to Monday.
         """
         today = datetime.today().date()
         upcoming = []
@@ -132,20 +132,20 @@ class AddressBook(UserDict):
             birthday = record.birthday.value.date()
             birthday_this_year = birthday.replace(year=today.year)
 
-            # Якщо день народження вже минув у цьому році, перевіряємо наступний рік 
+            # If the birthday has already passed this year, check the next year
             if birthday_this_year < today:
                 birthday_this_year = birthday_this_year.replace(year=today.year + 1)
 
             delta_days = (birthday_this_year - today).days
 
-            # Перевірка, чи входить дата у заданий діапазон 
+            # Check if the date falls within the specified range
             if 0 <= delta_days <= days:
                 congrat_date = birthday_this_year
 
-                # Перенесення вихідних на робочі дні 
-                if congrat_date.weekday() == 5:  # Субота
+                # Move weekend birthdays to working days 
+                if congrat_date.weekday() == 5:  # Saturday
                     congrat_date += timedelta(days=2)
-                elif congrat_date.weekday() == 6:  # Неділя
+                elif congrat_date.weekday() == 6:  # Sunday
                     congrat_date += timedelta(days=1)
 
                 upcoming.append({

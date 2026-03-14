@@ -2,7 +2,7 @@ from assistant.errors.errors_handler import input_error
 from assistant.utils.contact_utils import get_contact_or_raise
 from assistant.validators import validate_args
 
-
+# Phone operations
 @input_error
 def add_phone(args, book):
     validate_args(args, 2, "Please provide name and phone.")

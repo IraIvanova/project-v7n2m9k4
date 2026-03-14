@@ -3,7 +3,7 @@ from assistant.errors.exceptions import AddressBookError
 from assistant.validators import validate_args
 from assistant.utils.contact_utils import get_contact_or_raise
 
-
+# Email operations
 @input_error
 def add_email(args, book):
     validate_args(args, 2, "Please provide name and email.")
